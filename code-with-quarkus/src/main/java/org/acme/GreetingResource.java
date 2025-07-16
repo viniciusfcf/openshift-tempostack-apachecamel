@@ -1,6 +1,7 @@
 package org.acme;
 
 import org.eclipse.microprofile.reactive.messaging.Channel;
+import org.jboss.logging.Logger;
 
 import io.smallrye.mutiny.Uni;
 import io.smallrye.reactive.messaging.MutinyEmitter;
@@ -14,7 +15,10 @@ import jakarta.ws.rs.core.MediaType;
 @Path("/hello")
 public class GreetingResource {
 
-     @Inject
+    @Inject
+    Logger log; 
+
+    @Inject
     @Channel("pagamentos")
     MutinyEmitter<String> pagamentosEmitter;
 
@@ -28,6 +32,7 @@ public class GreetingResource {
     @Path("send")
     @Produces(MediaType.TEXT_PLAIN)
     public Uni<String> send(@QueryParam("msg") String msg) {
+        log.info("SEND: "+msg);
         return pagamentosEmitter.send(msg).map(x -> "ok")
                 .onFailure().recoverWithItem("ko");
     }
