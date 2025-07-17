@@ -6,7 +6,7 @@ metadata:
 components:
   - name: tools
     container:
-      image: eclipse-temurin:17-jdk
+      image: registry.redhat.io/devspaces/udi-rhel9@sha256:cca6cbf5adcb5ce83392795573fe258d468568bddc3ad3618297e9e6234cfb79
       memoryLimit: 2Gi
       cpuLimit: 1000m
       mountSources: true
