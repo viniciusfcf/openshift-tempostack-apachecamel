@@ -1,0 +1,39 @@
+- route:
+    id: route-2171
+    from:
+      id: from-1137
+      uri: rest
+      parameters:
+        consumes: application/json
+        method: post
+        path: /ordens
+        produces: application/json
+      steps:
+        - to:
+            id: to-1819
+            uri: log:InfoLogger
+            parameters: {}
+        - setBody:
+            id: setBody-3389
+            jq:
+              expression: >
+                { "ItemName": .ItemName, "ItemSummary": (.ItemName + " - " +
+                (.Quantity | tostring)) }
+        - to:
+            id: to-8301
+            uri: log:InfoLogger
+            parameters: {}
+        - setBody:
+            id: setBody-9077
+            simple:
+              expression: "null"
+        - removeHeaders:
+            id: removeHeaders-1371
+            pattern: "*"
+        - to:
+            id: to-1103
+            uri: rest
+            parameters:
+              host: http://quarkus-app-my-app.apps.cluster-z5h76.z5h76.sandbox2768.opentlc.com
+              method: get
+              path: hello/send?msg=b
