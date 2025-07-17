@@ -23,8 +23,12 @@
             id: to-8301
             uri: log:InfoLogger
             parameters: {}
+        - marshal:
+            id: marshal-1365
+            json: {}
         - setBody:
             id: setBody-9077
+            disabled: true
             simple:
               expression: "null"
         - removeHeaders:
@@ -35,5 +39,5 @@
             uri: rest
             parameters:
               host: http://quarkus-app-my-app.apps.cluster-z5h76.z5h76.sandbox2768.opentlc.com
-              method: get
-              path: hello/send?msg=b
+              method: post
+              path: hello/send
